@@ -29,18 +29,26 @@ class App extends Component {
   }
 
   getPerson (id) {
-    this.fetch(`api/people/#{id}`)
+    this.fetch(`api/people`)
     .then(data => this.setState({data}))
   }
 
   render() {
+    let data = null
+    if (this.state.data !== undefined) {
+      data = this.state.data
+    }
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        {console.log(this.state.data[0])}
+        <div className="ui list">
+            {Object.keys(data).map(function(keyName, keyIndex) {
+              return <div className="item" key={keyIndex}>{keyName}: {data[keyName]}</div>
+            })}
+        </div>
       </div>
     );
   }
