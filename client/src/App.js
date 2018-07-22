@@ -1,22 +1,15 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
   constructor() {
     super()
-    this.state = {
-      data: {}
-    }
-    this.getPerson    = this.getPerson.bind(this)
-    // this.getFilm      = this.getFilm.bind(this)
-    // this.getPlanet    = this.getPlanet.bind(this)
-    // this.getSpecies   = this.getSpecies.bind(this)
-    // this.getStarship  = this.getStarship.bind(this)
-    // this.getVehicle   = this.getVehicle.bind(this)
+    this.state = {}
+    this.getEntry = this.getEntry.bind(this)
   }
-  componentDidMount() {
-    this.getPerson(1)
+
+  componentWillMount() {
+    this.getEntry('https://swapi.co/api/people/1/')
   }
 
   fetch (endpoint) {
@@ -28,27 +21,70 @@ class App extends Component {
     })
   }
 
-  getPerson (id) {
-    this.fetch(`api/people`)
+  getEntry (url) {
+    console.log('url inside getEntry')
+    console.log(url)
+    this.fetch(url)
     .then(data => this.setState({data}))
   }
 
-  render() {
-    let data = null
-    if (this.state.data !== undefined) {
-      data = this.state.data
-    }
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <div className="ui list">
+  divList (data) {
+    const urlRegex = /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/ig
+
+    if (data) {
+      return (
+        <div>
+          <h1>{data['url'].split('/').slice(-3,-2)}</h1>
             {Object.keys(data).map(function(keyName, keyIndex) {
-              return <div className="item" key={keyIndex}>{keyName}: {data[keyName]}</div>
+              if (Array.isArray(data[keyName])) {
+                return (
+                  <div className="list-container" key={keyIndex}>
+                    <b>{keyName}:</b>
+                    {Object.keys(data[keyName]).map(function(nestedKey, nestedKeyIndex) {
+                      console.log('data[keyName][nestedKey]')
+                      console.log(data[keyName][nestedKey])
+                      return (
+                        <div className="list-item-container">
+                          <button className="ui button" onClick={this.getEntry(data[keyName][nestedKey])} key={nestedKeyIndex}>
+                            {data[keyName][nestedKey]}
+                          </button>
+                          <br />
+                        </div>
+                      )
+                    })}
+                  </div>
+                )
+              }else if (urlRegex.test(data[keyName]) && data[keyName]){
+                console.log('data[keyName]')
+                console.log(data[keyName])
+                return (
+                  <div>
+                    <b>{keyName}</b>: &nbsp;
+                    <button className="ui button" onClick={this.getEntry(data[keyName])} key={keyIndex}>
+                      {data[keyName]}
+                    </button>
+                  </div>
+                )
+              }else {
+                return (
+                  <div key={keyName}>
+                    <b>{keyName}</b>: {data[keyName]}
+                  </div>
+                )
+              }
             })}
         </div>
+      )
+    }
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header>
+          <h1 className="App-title">Star Wars API</h1>
+        </header>
+          {this.divList(this.state.data)}
       </div>
     );
   }
