@@ -17,6 +17,8 @@ class CreateStarships < ActiveRecord::Migration[5.1]
       t.string :films, array: true
       t.string :pilots, array: true
       t.string :url
+      t.string :created
+      t.string :edited
       t.timestamps
     end
   end

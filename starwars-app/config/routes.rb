@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'landing#index'
 
   scope '/api' do
+    resources :landing
     resources :films
     resources :people
     resources :planets

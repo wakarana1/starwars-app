@@ -1,13 +1,14 @@
 class FindOrCreateModel
   require 'net/http'
+  require 'active_support/inflector/methods.rb'
 
   def initialize
   end
 
   def find_entry(url)
       url_arr = url.split('/')
-      class_type = url_arr[-2].capitalize
-      id = url_arr[-1]
+      class_type = url_arr[-2].singularize.capitalize.constantize
+      id = url_arr[-1].to_i
       @entry = class_type.find(id)
       if @entry
         json_response(@entry)
@@ -17,8 +18,10 @@ class FindOrCreateModel
   end
 
   def create_entry(url)
-    request = Net::HTTP::Get.new(URI.parse(url).to_s)
-    result = Net::HTTP.start(url.host, url.port) { |http| http.request(request) }
+    uri = URI.parse(url).to_s
+    request = Net::HTTP::Get.new(uri)
+    p uri, request
+    result = Net::HTTP.start(uri.host, uri.port) { |http| http.request(request) }
     p result
     json_response(result)
   end

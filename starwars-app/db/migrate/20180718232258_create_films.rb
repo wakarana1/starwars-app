@@ -13,6 +13,8 @@ class CreateFilms < ActiveRecord::Migration[5.1]
       t.string :characters, array: true
       t.string :planets, array: true
       t.string :url
+      t.string :created
+      t.string :edited
       t.timestamps
     end
   end

@@ -15,6 +15,8 @@ class CreatePeople < ActiveRecord::Migration[5.1]
       t.string :starships, array: true
       t.string :vehicles, array: true
       t.string :url
+      t.string :created
+      t.string :edited
       t.timestamps
     end
   end

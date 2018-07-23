@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20180718232428) do
     t.string "characters", array: true
     t.string "planets", array: true
     t.string "url"
+    t.string "created"
+    t.string "edited"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -47,6 +49,8 @@ ActiveRecord::Schema.define(version: 20180718232428) do
     t.string "starships", array: true
     t.string "vehicles", array: true
     t.string "url"
+    t.string "created"
+    t.string "edited"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -64,6 +68,8 @@ ActiveRecord::Schema.define(version: 20180718232428) do
     t.string "residents", array: true
     t.string "films", array: true
     t.string "url"
+    t.string "created"
+    t.string "edited"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -82,6 +88,8 @@ ActiveRecord::Schema.define(version: 20180718232428) do
     t.string "people", array: true
     t.string "films", array: true
     t.string "url"
+    t.string "created"
+    t.string "edited"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -103,6 +111,8 @@ ActiveRecord::Schema.define(version: 20180718232428) do
     t.string "films", array: true
     t.string "pilots", array: true
     t.string "url"
+    t.string "created"
+    t.string "edited"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -122,6 +132,8 @@ ActiveRecord::Schema.define(version: 20180718232428) do
     t.string "films", array: true
     t.string "pilots", array: true
     t.string "urls"
+    t.string "created"
+    t.string "edited"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

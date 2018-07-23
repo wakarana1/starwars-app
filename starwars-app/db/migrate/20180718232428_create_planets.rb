@@ -13,6 +13,8 @@ class CreatePlanets < ActiveRecord::Migration[5.1]
       t.string :residents, array: true
       t.string :films, array: true
       t.string :url
+      t.string :created
+      t.string :edited
       t.timestamps
     end
   end

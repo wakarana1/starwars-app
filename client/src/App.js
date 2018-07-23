@@ -5,11 +5,10 @@ class App extends Component {
   constructor() {
     super()
     this.state = {}
-    this.getEntry = this.getEntry.bind(this)
   }
 
   componentWillMount() {
-    this.getEntry('https://swapi.co/api/people/1/')
+    this.getEntry('https://swapi.co/api/people/1')
   }
 
   fetch (endpoint) {
@@ -22,9 +21,7 @@ class App extends Component {
   }
 
   getEntry (url) {
-    console.log('url inside getEntry')
-    console.log(url)
-    this.fetch(url)
+    this.fetch(`api/landing?url=${url}`)
     .then(data => this.setState({data}))
   }
 
@@ -35,17 +32,15 @@ class App extends Component {
       return (
         <div>
           <h1>{data['url'].split('/').slice(-3,-2)}</h1>
-            {Object.keys(data).map(function(keyName, keyIndex) {
+            {Object.keys(data).map((keyName, keyIndex) => {
               if (Array.isArray(data[keyName])) {
                 return (
                   <div className="list-container" key={keyIndex}>
                     <b>{keyName}:</b>
-                    {Object.keys(data[keyName]).map(function(nestedKey, nestedKeyIndex) {
-                      console.log('data[keyName][nestedKey]')
-                      console.log(data[keyName][nestedKey])
+                    {Object.keys(data[keyName]).map((nestedKey, nestedKeyIndex) => {
                       return (
-                        <div className="list-item-container">
-                          <button className="ui button" onClick={this.getEntry(data[keyName][nestedKey])} key={nestedKeyIndex}>
+                        <div className="list-item-container" key={nestedKeyIndex}>
+                          <button className="ui button" onClick={() => this.getEntry(data[keyName][nestedKey])} >
                             {data[keyName][nestedKey]}
                           </button>
                           <br />
@@ -55,12 +50,10 @@ class App extends Component {
                   </div>
                 )
               }else if (urlRegex.test(data[keyName]) && data[keyName]){
-                console.log('data[keyName]')
-                console.log(data[keyName])
                 return (
-                  <div>
+                  <div key={keyIndex}>
                     <b>{keyName}</b>: &nbsp;
-                    <button className="ui button" onClick={this.getEntry(data[keyName])} key={keyIndex}>
+                    <button className="ui button" onClick={() => this.getEntry(data[keyName])} >
                       {data[keyName]}
                     </button>
                   </div>
