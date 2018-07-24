@@ -49,7 +49,7 @@ class App extends Component {
                     })}
                   </div>
                 )
-              }else if (urlRegex.test(data[keyName]) && data[keyName]){
+              }else if (data[keyName] && urlRegex.test(data[keyName])){
                 return (
                   <div key={keyIndex}>
                     <b>{keyName}</b>: &nbsp;
@@ -68,13 +68,17 @@ class App extends Component {
             })}
         </div>
       )
+    } else {
+      return (
+        <div>Loading...</div>
+      )
     }
   }
 
   render() {
     return (
       <div className="App">
-        <header>
+        <header className="App-header">
           <h1 className="App-title">Star Wars API</h1>
         </header>
           {this.divList(this.state.data)}

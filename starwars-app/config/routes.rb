@@ -4,11 +4,5 @@ Rails.application.routes.draw do
 
   scope '/api' do
     resources :landing
-    resources :films
-    resources :people
-    resources :planets
-    resources :species
-    resources :starships
-    resources :vehicles
   end
 end
