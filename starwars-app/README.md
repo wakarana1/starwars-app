@@ -1,6 +1,10 @@
 # Star Wars API
 
 to get started, run:
+inside `client`:
+`npm install`
+
+inside starwars-app:
 `bundle install`
 `rake db:migrate`
 `rake db:seed`
